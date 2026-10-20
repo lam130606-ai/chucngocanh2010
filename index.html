@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Ngọc Anh Yêu Dấu - Chúc Mừng 20/10 ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #feada6 100%);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            position: relative;
+        }
+
+        /* Nút bật/tắt nhạc */
+        #music-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        #music-toggle:hover {
+            background: rgba(255, 255, 255, 0.45);
+            transform: scale(1.05);
+        }
+
+        /* Màn hình mở quà */
+        #welcome-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.88) 100%);
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 1s ease, visibility 1s ease;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .gift-box-wrapper {
+            position: relative;
+            cursor: pointer;
+            animation: bounceBox 2s infinite ease-in-out;
+            margin-bottom: 25px;
+        }
+
+        .gift-box {
+            font-size: 90px;
+            filter: drop-shadow(0 10px 25px rgba(255, 107, 129, 0.6));
+            transition: 0.4s;
+        }
+
+        .gift-box-wrapper:hover .gift-box {
+            transform: scale(1.15) rotate(6deg);
+        }
+
+        @keyframes bounceBox {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-18px); }
+        }
+
+        #welcome-screen h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+            font-family: 'Dancing Script', cursive;
+            color: #ffdde1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        #welcome-screen p.sub-text {
+            font-size: 15px;
+            color: #ddd;
+            margin-bottom: 25px;
+        }
+
+        .open-btn {
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            color: white;
+            border: none;
+            padding: 14px 38px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(255, 71, 87, 0.5);
+            transition: 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .open-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 30px rgba(255, 71, 87, 0.8);
+        }
+
+        /* Khung thiệp chính */
+        .container {
+            width: 90%;
+            max-width: 440px;
+            height: 88vh;
+            max-height: 760px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        .slides-container {
+            flex: 1;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 42px;
+            color: #fff;
+            margin-bottom: 12px;
+            text-shadow: 2px 3px 6px rgba(0,0,0,0.15);
+        }
+
+        p {
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .date-badge {
+            font-size: 52px;
+            font-weight: bold;
+            font-family: 'Dancing Script', cursive;
+            color: #fff2cc;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Khung ảnh kỷ niệm */
+        .photo-frame {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.8);
+            margin: 0 auto 12px auto;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .interactive-box {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .love-btn {
+            background: #fff;
+            color: #ff4757;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .love-btn:hover {
+            background: #ff4757;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* Thanh điều hướng slide (Dots) */
+        .navigation-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background: #fff;
+            width: 25px;
+            border-radius: 5px;
+        }
+
+        .next-hint {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Hiệu ứng trái tim bay */
+        .heart {
+            position: absolute;
+            color: #ff4757;
+            font-size: 22px;
+            animation: flyUp 4s linear infinite;
+            z-index: 1;
+            user-select: none;
+        }
+
+        @keyframes flyUp {
+            0% {
+                transform: translateY(105vh) scale(0.6) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.3) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nút âm thanh -->
+    <button id="music-toggle" onclick="toggleMusic()">
+        <span id="music-icon">🎵</span> <span id="music-text">Bật nhạc</span>
+    </button>
+
+    <!-- Nhạc nền lãng mạn -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://actions.google.com/sounds/v1/ambiences/romantic_music.ogg" type="audio/ogg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=romantic-cute-wedding-112191.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Màn hình chào mừng mở quà -->
+    <div id="welcome-screen">
+        <div class="gift-box-wrapper" onclick="openGift()">
+            <div class="gift-box">🎁</div>
+        </div>
+        <h2>Gửi Ngọc Anh Yêu Dấu ❤️</h2>
+        <p class="sub-text">Bấm vào nút bên dưới để mở quà và phát nhạc nhé!</p>
+        <button class="open-btn" onclick="openGift()">Mở Quà & Phát Nhạc ✨</button>
+    </div>
+
+    <!-- Khung thiệp chính -->
+    <div class="container" onclick="nextSlide()">
+        
+        <div class="slides-container">
+            <!-- Slide 1 -->
+            <div class="slide active">
+                <div class="date-badge">20 · 10</div>
+                <h1>Ngọc Anh Yêu Dấu</h1>
+                <div class="photo-frame">🌸</div>
+                <p>Chúc mừng ngày Phụ nữ Việt Nam! Mong rằng nụ cười rạng rỡ này sẽ luôn ở trên môi em mỗi ngày.</p>
+            </div>
+
+            <!-- Slide 2: Đã thêm lời chúc bình an trên mọi nẻo đường -->
+            <div class="slide">
+                <h1>Cảm Ơn Em</h1>
+                <div class="photo-frame">✨</div>
+                <p>🌸 Vì em luôn chu đáo, dịu dàng và mang đến thật nhiều niềm vui ấm áp cho những người xung quanh.</p>
+                <p>✨ <strong>Mong rằng mỗi bước em đi, mỗi cung đường em qua, đều có bình an, may mắn và hạnh phúc chở che.</strong></p>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide">
+                <h1>Mãi Xinh Đẹp Nhé!</h1>
+                <div class="photo-frame">💖</div>
+                <p>Mong mỗi ngày trôi qua của em đều ngập tràn hoa tươi, ánh nắng ấm áp và những điều ngọt ngào nhất.</p>
+                <p style="font-family: 'Dancing Script', cursive; font-size: 26px; color: #fff2cc;">Thương và chúc mừng 20/10 Ngọc Anh của anh! ❤️</p>
+                <div class="interactive-box" onclick="event.stopPropagation()">
+                    <button class="love-btn" onclick="sendMoreLove()">Gửi Thêm Tim 💖</button>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <!-- Thanh chấm chỉ số slide -->
+            <div class="navigation-dots" onclick="event.stopPropagation()">
+                <span class="dot active" onclick="currentSlideTo(0)"></span>
+                <span class="dot" onclick="currentSlideTo(1)"></span>
+                <span class="dot" onclick="currentSlideTo(2)"></span>
+            </div>
+            <div class="next-hint">Chạm vào bất cứ đâu để chuyển tiếp ➔</div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const music = document.getElementById('bg-music');
+        const musicIcon = document.getElementById('music-icon');
+        const musicText = document.getElementById('music-text');
+        let isMusicPlaying = false;
+
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                music.pause();
+                musicIcon.innerHTML = '🎵';
+                musicText.innerHTML = 'Bật nhạc';
+                isMusicPlaying = false;
+            } else {
+                music.play().then(() => {
+                    musicIcon.innerHTML = '🔇';
+                    musicText.innerHTML = 'Tắt nhạc';
+                    isMusicPlaying = true;
+                }).catch(e => {
+                    console.log("Audio play blocked", e);
+                    alert("Trình duyệt chặn tự động phát nhạc, bạn hãy bấm vào nút góc trên bên phải nhé!");
+                });
+            }
+        }
+
+        function openGift() {
+            const welcome = document.getElementById('welcome-screen');
+            welcome.style.opacity = '0';
+            welcome.style.visibility = 'hidden';
+            
+            music.play().then(() => {
+                musicIcon.innerHTML = '🔇';
+                musicText.innerHTML = 'Tắt nhạc';
+                isMusicPlaying = true;
+            }).catch(e => {
+                console.log("Audio play prevented:", e);
+            });
+
+            startHeartEffect();
+        }
+
+        function updateSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            
+            currentSlide = index;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            let nextIndex = (currentSlide + 1) % slides.length;
+            updateSlide(nextIndex);
+        }
+
+        function currentSlideTo(index) {
+            updateSlide(index);
+        }
+
+        function startHeartEffect() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                const heartsList = ['❤️', '💖', '🌸', '✨', '💐', '🌷'];
+                heart.innerHTML = heartsList[Math.floor(Math.random() * heartsList.length)];
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.animationDuration = (Math.random() * 2 + 3.5) + 's';
+                heart.style.fontSize = (Math.random() * 10 + 16) + 'px';
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }, 300);
+        }
+
+        function sendMoreLove() {
+            for(let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerHTML = '💖';
+                    heart.style.left = (window.innerWidth / 2 + (Math.random() * 200 - 100)) + 'px';
+                    heart.style.bottom = '50px';
+                    heart.style.animationDuration = (Math.random() * 1 + 2) + 's';
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 3000);
+                }, i * 50);
+            }
+        }
+    </script>
+</body>
+</html>
